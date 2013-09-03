@@ -7,16 +7,22 @@ package jammieshuttletimesdownloader;
 
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.net.URL;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import sun.applet.Main;
 
 /**
  *
@@ -54,6 +60,19 @@ public class HomeScreen extends javax.swing.JFrame
             System.out.println("Problem setting look and feel.");
         }
         initComponents();
+       
+//        URL windowurl = Main.class.getResource("/uct2.jpg");
+//        BufferedImage windowImage = null;
+//        try
+//        {
+//            windowImage = ImageIO.read(windowurl);
+//            this.setIconImage(windowImage);
+//            
+//        } catch (IOException ex)
+//        {
+//            System.out.println("could not get window image " + ex);
+//        }
+
         this.setLocationRelativeTo(null);
         for (int i = 0; i < routes.length; i++)
         {
@@ -122,36 +141,36 @@ public class HomeScreen extends javax.swing.JFrame
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102))
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(routesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(downloadB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102))
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(routesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                        .addGap(125, 125, 125)
+                                        .addComponent(downloadB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(31, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(routesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(downloadB)
-                .addContainerGap(13, Short.MAX_VALUE))
+                jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(routesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(downloadB)
+                        .addContainerGap(13, Short.MAX_VALUE))
         );
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(routesCombo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -161,6 +180,9 @@ public class HomeScreen extends javax.swing.JFrame
         jMenu1.setText("File");
 
         deleteFileMB.setText("Delete old timetables");
+        URL delurl = Main.class.getResource("/delete_icon.png");
+        ImageIcon delIcon = new ImageIcon(delurl);
+        deleteFileMB.setIcon(delIcon);
         deleteFileMB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -171,6 +193,9 @@ public class HomeScreen extends javax.swing.JFrame
         jMenu1.add(deleteFileMB);
 
         setSaveLocationMB.setText("Set timetable save location");
+        URL saveurl = Main.class.getResource("/folder_icon.png");
+        ImageIcon saveIcon = new ImageIcon(saveurl);
+        setSaveLocationMB.setIcon(saveIcon);
         setSaveLocationMB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -187,21 +212,21 @@ public class HomeScreen extends javax.swing.JFrame
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>                        
 
-    private void downloadBActionPerformed(java.awt.event.ActionEvent evt)                                          
-    {                                              
+    private void downloadBActionPerformed(java.awt.event.ActionEvent evt)
+    {
         String selected = (String) routesCombo.getSelectedItem();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         File f = new File(getPath(selected));
@@ -224,10 +249,10 @@ public class HomeScreen extends javax.swing.JFrame
         }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }                                         
+    }
 
-    private void deleteFileMBActionPerformed(java.awt.event.ActionEvent evt)                                             
-    {                                                 
+    private void deleteFileMBActionPerformed(java.awt.event.ActionEvent evt)
+    {
 
         for (int i = 0; i < routes.length; i++)
         {
@@ -235,10 +260,10 @@ public class HomeScreen extends javax.swing.JFrame
             f.delete();
         }
 
-    }                                            
+    }
 
-    private void setSaveLocationMBActionPerformed(java.awt.event.ActionEvent evt)                                                  
-    {                                                      
+    private void setSaveLocationMBActionPerformed(java.awt.event.ActionEvent evt)
+    {
         File folderSelected = null;
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION)
@@ -255,7 +280,7 @@ public class HomeScreen extends javax.swing.JFrame
         {
             System.out.println("File access cancelled.");
         }
-    }                                                 
+    }
 
     public static String getPath(String routeName)
     {
