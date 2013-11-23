@@ -7,7 +7,6 @@ package jammieshuttletimesdownloader;
 
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,9 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
@@ -34,14 +30,13 @@ public class HomeScreen extends javax.swing.JFrame
     public static final String originalStartPath = "C:\\Jammie Shuttle Time Tables";
     public static String startPath = "C:\\Jammie Shuttle Time Tables";
     public static String endPath = ".pdf";
-    private String[] routes =
-    {
-        "Hiddingh Hall", "Claremont", "Forrest Hill", "Tugwell", "Sandown", "Groote Schuur Res.", "Bremner", "Rochester", "Clarinus", "Mowbray", "Liesbeeck", "Obz Square (via Medical school)", "Medschool", "Residence loop Weekday", "Residence loop Saturday", "Residence loop Sunday"
-    };
+    private String[] routes;
     private Downloader d;
 
     public HomeScreen()
     {
+        d = new Downloader();
+        routes = d.getRoutes();
         Runtime.getRuntime().addShutdownHook(new Thread()
         {
             @Override
@@ -52,15 +47,15 @@ public class HomeScreen extends javax.swing.JFrame
         });
 
         try
-        {
+          {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
-        {
+          } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
+          {
             System.out.println("Problem setting look and feel.");
-        }
+          }
         initComponents();
-       
+
 //        URL windowurl = Main.class.getResource("/uct2.jpg");
 //        BufferedImage windowImage = null;
 //        try
@@ -72,33 +67,31 @@ public class HomeScreen extends javax.swing.JFrame
 //        {
 //            System.out.println("could not get window image " + ex);
 //        }
-
         this.setLocationRelativeTo(null);
         for (int i = 0; i < routes.length; i++)
-        {
+          {
             routesCombo.addItem(routes[i]);
-        }
+          }
 
         File f = new File(startPath);
         if (!f.exists())
-        {
+          {
             try
-            {
+              {
                 if (f.mkdir())
-                {
+                  {
                     System.out.println("Directory Created");
-                } else
-                {
+                  } else
+                  {
                     System.out.println("Directory is not created");
-                }
-            } catch (Exception e)
-            {
+                  }
+              } catch (Exception e)
+              {
                 e.printStackTrace();
-            }
-        }
+              }
+          }
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         loadProperties();
-        d = new Downloader();
 
     }
 
@@ -232,21 +225,21 @@ public class HomeScreen extends javax.swing.JFrame
         File f = new File(getPath(selected));
 
         if (!f.exists())
-        {
+          {
             d.downloadRoute(selected);
-        }
+          }
 
         if (Desktop.isDesktopSupported())
-        {
+          {
             try
-            {
+              {
                 File myFile = new File(getPath(selected));
                 Desktop.getDesktop().open(myFile);
-            } catch (IOException ex)
-            {
+              } catch (IOException ex)
+              {
                 System.out.println("Could not open PDF: " + getPath(selected));
-            }
-        }
+              }
+          }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -255,10 +248,10 @@ public class HomeScreen extends javax.swing.JFrame
     {
 
         for (int i = 0; i < routes.length; i++)
-        {
+          {
             File f = new File(getPath(routes[i]));
             f.delete();
-        }
+          }
 
     }
 
@@ -267,19 +260,19 @@ public class HomeScreen extends javax.swing.JFrame
         File folderSelected = null;
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION)
-        {
+          {
             folderSelected = fileChooser.getSelectedFile();
             try
-            {
+              {
                 startPath = folderSelected.getAbsolutePath();
-            } catch (Exception ex)
-            {
+              } catch (Exception ex)
+              {
                 System.out.println("Error accessing file" + folderSelected.getAbsolutePath());
-            }
-        } else
-        {
+              }
+          } else
+          {
             System.out.println("File access cancelled.");
-        }
+          }
     }
 
     public static String getPath(String routeName)
@@ -292,7 +285,7 @@ public class HomeScreen extends javax.swing.JFrame
         Properties prop = new Properties();
 
         try
-        {
+          {
             //load a properties file
             prop.load(new FileInputStream(originalStartPath + "\\jammietimetables.properties"));
 
@@ -300,10 +293,10 @@ public class HomeScreen extends javax.swing.JFrame
             startPath = prop.getProperty("startPath");
             endPath = prop.getProperty("endPath");
 
-        } catch (FileNotFoundException fne)
-        {
+          } catch (FileNotFoundException fne)
+          {
             try// create one
-            {
+              {
                 //set the properties value
                 prop.setProperty("startPath", startPath);
                 prop.setProperty("endPath", endPath);
@@ -315,18 +308,18 @@ public class HomeScreen extends javax.swing.JFrame
                 Process proc = rt.exec("attrib -s -h -r " + originalStartPath + "\\jammietimetables.properties");
                 proc.waitFor();
 
-            } catch (IOException ex)
-            {
+              } catch (IOException ex)
+              {
                 System.out.println("Error making properties file after not finding one " + ex);
-            } catch (InterruptedException e)
-            {
+              } catch (InterruptedException e)
+              {
                 System.out.println(e);
-            }
+              }
 
-        } catch (IOException ex)
-        {
+          } catch (IOException ex)
+          {
             System.out.println("Error reading from properties " + ex);
-        }
+          }
 
     }
 
@@ -334,7 +327,7 @@ public class HomeScreen extends javax.swing.JFrame
     {
         Properties prop = new Properties();
         try// create one
-        {
+          {
             //set the properties value
             prop.setProperty("startPath", startPath);
             prop.setProperty("endPath", endPath);
@@ -344,13 +337,13 @@ public class HomeScreen extends javax.swing.JFrame
             Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec("attrib -s -h -r " + originalStartPath + "\\jammietimetables.properties");
             proc.waitFor();
-        } catch (IOException ex)
-        {
+          } catch (IOException ex)
+          {
             System.out.println("Error making properties file after not finding one " + ex);
-        } catch (InterruptedException e)
-        {
+          } catch (InterruptedException e)
+          {
             System.out.println(e);
-        }
+          }
     }
 
     /**
